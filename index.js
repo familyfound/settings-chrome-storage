@@ -1,10 +1,13 @@
 
 var settings = require('settings')
-  , angular = require('angularjs')
-  , angularSettings = require('angular-settings');
+  , angular = require('angularjs');
+
+function keyName(manager) {
+  return 'settings:' + manager.name;
+}
 
 function load(manager, next) {
-  var key = manager.name + '.angularSettings';
+  var key = keyName(manager);
   chrome.storage.sync.get(key, function (obj) {
     manager.load(obj[key]);
     next && next();
@@ -12,7 +15,7 @@ function load(manager, next) {
 }
 
 function save(manager, next) {
-  var key = manager.name + '.angularSettings'
+  var key = keyName(manager)
     , obj = {};
   obj[key] = manager.json();
   chrome.storage.sync.set(obj, function (obj) {
@@ -20,12 +23,16 @@ function save(manager, next) {
   });
 }
 
-angular.module('chrome-storage', [])
-  .directive('chromeStorage', function () {
+var mod = angular.module('settings-chrome-storage', [])
+  .directive('settingsChromeStorage', function () {
     return {
       restrict: 'A',
       link: function (scope, el, attrs) {
-        var name = attrs.chromeStorage
+        if (!attrs.settingsManager) {
+          console.warn('chrome-storage can only be used in connection with settings-manager');
+          return;
+        }
+        var name = attrs.settingsChromeStorage
           , manager = settings.getSettings(name);
         scope.$watch('settings', function (value) {
           save(manager);
@@ -39,6 +46,7 @@ angular.module('chrome-storage', [])
 
 module.exports = {
   load: load,
-  save: save
+  save: save,
+  module: mod
 };
 

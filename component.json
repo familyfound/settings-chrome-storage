@@ -1,13 +1,14 @@
 {
-  "name": "chrome-storage",
-  "repo": "familyfound/chrome-storage",
+  "name": "settings-chrome-storage",
+  "repo": "familyfound/settings-chrome-storage",
   "description": "Store angular settings for chrome extensions",
-  "version": "0.0.1",
-  "keywords": [],
+  "version": "0.0.2",
+  "keywords": [
+    "google chrome", "extension", "app", "storage", "API", "settings"
+  ],
   "dependencies": {
     "jabapyth/angularjs": "*",
-    "notablemind/settings": "*",
-    "notablemind/angular-settings": "*"
+    "notablemind/settings": "*"
   },
   "development": {
     "chaijs/chai": "*",
