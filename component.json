@@ -5,7 +5,9 @@
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-    "jabapyth/angularjs": "*"
+    "jabapyth/angularjs": "*",
+    "notablemind/settings": "*",
+    "notablemind/angular-settings": "*"
   },
   "development": {
     "chaijs/chai": "*",
