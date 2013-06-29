@@ -1,0 +1,19 @@
+{
+  "name": "chrome-storage",
+  "repo": "familyfound/chrome-storage",
+  "description": "Store angular settings for chrome extensions",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "jabapyth/angularjs": "*"
+  },
+  "development": {
+    "chaijs/chai": "*",
+    "familyfound/ng-bootstrap": "*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
