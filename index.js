@@ -2,12 +2,21 @@
 var settings = require('settings')
   , angular = require('angularjs');
 
-function keyName(manager) {
-  return 'settings:' + manager.name;
+function keyName(name) {
+  return 'settings:' + name;
+}
+
+function clear(name, next) {
+  var key = keyName(name)
+    , obj = {};
+  obj[key] = {};
+  chrome.storage.sync.set(obj, function (obj) {
+    next && next();
+  });
 }
 
 function load(manager, next) {
-  var key = keyName(manager);
+  var key = keyName(manager.name);
   chrome.storage.sync.get(key, function (obj) {
     manager.load(obj[key]);
     next && next();
@@ -15,7 +24,7 @@ function load(manager, next) {
 }
 
 function save(manager, next) {
-  var key = keyName(manager)
+  var key = keyName(manager.name)
     , obj = {};
   obj[key] = manager.json();
   chrome.storage.sync.set(obj, function (obj) {
@@ -24,6 +33,19 @@ function save(manager, next) {
 }
 
 var mod = angular.module('settings-chrome-storage', [])
+  .directive('clearChromeStorage', function () {
+    return {
+      restrict: 'A',
+      link: function (scope, el, attrs) {
+        var name = attrs.clearChromeStorage;
+        el[0].addEventListener('click', function () {
+          clear(name, function () {
+            location.reload();
+          });
+        });
+      }
+    };
+  })
   .directive('settingsChromeStorage', function () {
     return {
       restrict: 'A',
