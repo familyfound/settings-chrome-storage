@@ -7,7 +7,7 @@
     "google chrome", "extension", "app", "storage", "API", "settings"
   ],
   "dependencies": {
-    "jabapyth/angularjs": "*",
+    "jaredly/angularjs": "*",
     "notablemind/settings": "*"
   },
   "development": {
